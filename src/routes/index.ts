@@ -7,6 +7,8 @@ import { acceptFreightController } from "../controllers/acceptFreightController"
 import { listAvailableFreightsController } from "../controllers/listAvailableFreightsController";
 import { finishFreightController } from "../controllers/finishFreightController";
 
+//import { createFreightController } from "../controllers/createFreightController";
+
 import { authMiddleware } from "../middlewares/authMiddleware";
 import { roleMiddleware } from "../middlewares/roleMiddleware";
 
@@ -19,7 +21,7 @@ router.post(
   "/freights",
   authMiddleware,
   roleMiddleware("CLIENT"),
-  createFreightController
+  //createFreightController
 );
 
 router.get(
