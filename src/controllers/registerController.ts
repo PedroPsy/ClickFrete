@@ -3,10 +3,10 @@ import bcrypt from "bcrypt";
 import { prisma } from "../prisma/client";
 
 export async function registerController(req: Request, res: Response) {
-  const { name, email, password, role, phone } = req.body;
+  const { name, email, password, role, phone, vehicleType, vehiclePlate } = req.body;
 
   const userExists = await prisma.user.findUnique({
-    where: { email }
+    where: { email },
   });
 
   if (userExists) {
@@ -21,8 +21,17 @@ export async function registerController(req: Request, res: Response) {
       email,
       password: hashedPassword,
       role,
-      phone
-    }
+      phone,
+      driver:
+        role === "DRIVER"
+          ? {
+              create: {
+                vehicleType,
+                vehiclePlate,
+              },
+            }
+          : undefined,
+    },
   });
 
   return res.status(201).json(user);
