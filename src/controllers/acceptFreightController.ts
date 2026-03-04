@@ -25,7 +25,7 @@ export async function acceptFreightController(req: AuthRequest, res: Response) {
     return res.status(404).json({ error: "Frete não encontrado" });
   }
 
-  if (freight.status !== "REQUESTED") {
+  if (freight.status !== "REQUESTED" || freight.driverId) {
     return res.status(400).json({ error: "Frete não está disponível para aceite" });
   }
 

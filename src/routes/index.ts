@@ -7,6 +7,9 @@ import { acceptFreightController } from "../controllers/acceptFreightController"
 import { listAvailableFreightsController } from "../controllers/listAvailableFreightsController";
 import { finishFreightController } from "../controllers/finishFreightController";
 import { meController } from "../controllers/meController";
+import { listClientFreightsController } from "../controllers/listClientFreightsController";
+import { listDriverFreightsController } from "../controllers/listDriverFreightsController";
+import { createReviewController } from "../controllers/createReviewController";
 
 import { authMiddleware } from "../middlewares/authMiddleware";
 import { roleMiddleware } from "../middlewares/roleMiddleware";
@@ -43,6 +46,27 @@ router.patch(
   authMiddleware,
   roleMiddleware("DRIVER"),
   finishFreightController
+);
+
+router.get(
+  "/freights/client",
+  authMiddleware,
+  roleMiddleware("CLIENT"),
+  listClientFreightsController
+);
+
+router.get(
+  "/freights/driver",
+  authMiddleware,
+  roleMiddleware("DRIVER"),
+  listDriverFreightsController
+);
+
+router.post(
+  "/reviews",
+  authMiddleware,
+  roleMiddleware("CLIENT"),
+  createReviewController
 );
 
 export { router };
