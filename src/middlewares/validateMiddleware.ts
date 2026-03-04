@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { ZodSchema } from "zod";
 
-export function validateMiddleware(schema: ZodSchema) {
+type ValidatorSchema = {
+  parse: (data: unknown) => unknown;
+};
+
+export function validateMiddleware(schema: ValidatorSchema) {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       schema.parse(req.body);
