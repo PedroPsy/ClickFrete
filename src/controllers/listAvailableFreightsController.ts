@@ -8,6 +8,7 @@ export async function listAvailableFreightsController(
   const freights = await prisma.freight.findMany({
     where: {
       status: "REQUESTED",
+      driverId: null,
     },
     orderBy: {
       createdAt: "desc",
