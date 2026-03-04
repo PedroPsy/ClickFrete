@@ -2,7 +2,8 @@ import { Router } from "express";
 
 import { registerController } from "../controllers/registerController";
 import { loginController } from "../controllers/loginController";
-import { createFreightController } from "../controllers/createFreightController";
+
+//import { createFreightController } from "../controllers/createFreightController";
 
 import { authMiddleware } from "../middlewares/authMiddleware";
 import { roleMiddleware } from "../middlewares/roleMiddleware";
@@ -18,7 +19,7 @@ router.post(
   "/freights",
   authMiddleware,
   roleMiddleware("CLIENT"),
-  createFreightController
+  //createFreightController
 );
 
 export { router };
