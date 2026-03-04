@@ -3,9 +3,10 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-} 
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
 enum Role {
   CLIENT
   DRIVER
@@ -28,19 +29,24 @@ model User {
   phone     String
   createdAt DateTime @default(now())
 
-  driver    Driver?
-  rides     Ride[]   @relation("ClientRides")
+  driver Driver?
+
+  rides Ride[] @relation("ClientRides")
+  freights Freight[] @relation("ClientFreights")
+  reviews  Review[]  @relation("ClientReviews")
 }
 
 model Driver {
-  id          String @id @default(uuid())
-  userId      String @unique
-  vehicleType String
+  id           String @id @default(uuid())
+  userId       String @unique
+  vehicleType  String
   vehiclePlate String
-  isOnline    Boolean @default(false)
+  isOnline     Boolean @default(false)
 
   user User @relation(fields: [userId], references: [id])
   rides Ride[]
+  freights Freight[]
+  reviews  Review[]
 }
 
 model Ride {
@@ -52,7 +58,44 @@ model Ride {
   price          Float
   status         RideStatus @default(SEARCHING)
   createdAt      DateTime   @default(now())
-
-  client User   @relation("ClientRides", fields: [clientId], references: [id])
+  client User @relation("ClientRides", fields: [clientId], references: [id])
   driver Driver? @relation(fields: [driverId], references: [id])
+}
+model Freight {
+  id             String        @id @default(uuid())
+  clientId       String
+  driverId       String?
+  pickupAddress  String
+  dropoffAddress String
+  price          Float
+  status         FreightStatus @default(REQUESTED)
+  createdAt      DateTime      @default(now())
+
+  client User   @relation("ClientFreights", fields: [clientId], references: [id])
+  driver Driver? @relation(fields: [driverId], references: [id])
+
+  review Review?
+}
+
+enum FreightStatus {
+  REQUESTED
+  PENDING
+  ACCEPTED
+  IN_PROGRESS
+  FINISHED
+  CANCELED
+}
+model Review {
+  id        String   @id @default(uuid())
+  rating    Int
+  comment   String?
+  freightId String   @unique
+  clientId  String
+  driverId  String
+  createdAt DateTime @default(now())
+
+  freight Freight @relation(fields: [freightId], references: [id])
+
+  client User   @relation("ClientReviews", fields: [clientId], references: [id])
+  driver Driver @relation(fields: [driverId], references: [id])
 }
