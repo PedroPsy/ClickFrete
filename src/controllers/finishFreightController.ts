@@ -32,6 +32,9 @@ export async function finishFreightController(req: AuthRequest, res: Response) {
   if (freight.status !== "IN_PROGRESS") {
     return res.status(400).json({
       error: "Só é possível finalizar frete com status IN_PROGRESS",
+  if (freight.status !== "ACCEPTED") {
+    return res.status(400).json({
+      error: "Só é possível finalizar frete com status ACCEPTED",
     });
   }
 
