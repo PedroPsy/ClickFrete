@@ -6,6 +6,8 @@ import { createFreightController } from "../controllers/createFreightController"
 import { acceptFreightController } from "../controllers/acceptFreightController";
 import { listAvailableFreightsController } from "../controllers/listAvailableFreightsController";
 import { finishFreightController } from "../controllers/finishFreightController";
+import { startFreightController } from "../controllers/startFreightController";
+import { cancelFreightController } from "../controllers/cancelFreightController";
 import { meController } from "../controllers/meController";
 import { listClientFreightsController } from "../controllers/listClientFreightsController";
 import { listDriverFreightsController } from "../controllers/listDriverFreightsController";
@@ -42,10 +44,23 @@ router.patch(
 );
 
 router.patch(
+  "/freights/:id/start",
+  authMiddleware,
+  roleMiddleware("DRIVER"),
+  startFreightController
+);
+
+router.patch(
   "/freights/:id/finish",
   authMiddleware,
   roleMiddleware("DRIVER"),
   finishFreightController
+);
+
+router.patch(
+  "/freights/:id/cancel",
+  authMiddleware,
+  cancelFreightController
 );
 
 router.get(

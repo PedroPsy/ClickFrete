@@ -2,7 +2,7 @@ import { Response } from "express";
 import { prisma } from "../prisma/client";
 import { AuthRequest } from "../middlewares/authMiddleware";
 
-export async function finishFreightController(req: AuthRequest, res: Response) {
+export async function startFreightController(req: AuthRequest, res: Response) {
   const { id } = req.params;
 
   if (!req.user) {
@@ -26,22 +26,21 @@ export async function finishFreightController(req: AuthRequest, res: Response) {
   }
 
   if (freight.driverId !== driver.id) {
-    return res.status(403).json({ error: "Apenas o motorista que aceitou pode finalizar" });
+    return res.status(403).json({
+      error: "Apenas o motorista responsável pode iniciar o frete",
+    });
   }
 
-  if (freight.status !== "IN_PROGRESS") {
-    return res.status(400).json({
-      error: "Só é possível finalizar frete com status IN_PROGRESS",
   if (freight.status !== "ACCEPTED") {
     return res.status(400).json({
-      error: "Só é possível finalizar frete com status ACCEPTED",
+      error: "Só é possível iniciar frete com status ACCEPTED",
     });
   }
 
   const updatedFreight = await prisma.freight.update({
     where: { id },
     data: {
-      status: "FINISHED",
+      status: "IN_PROGRESS",
     },
   });
 
