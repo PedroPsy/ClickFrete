@@ -2,7 +2,7 @@ import { Response } from "express";
 import { prisma } from "../prisma/client";
 import { AuthRequest } from "../middlewares/authMiddleware";
 
-export async function acceptFreightController(req: AuthRequest, res: Response) {
+export async function startFreightController(req: AuthRequest, res: Response) {
   const { id } = req.params;
 
   if (!req.user) {
@@ -25,15 +25,22 @@ export async function acceptFreightController(req: AuthRequest, res: Response) {
     return res.status(404).json({ error: "Frete não encontrado" });
   }
 
-  if (freight.status !== "REQUESTED" || freight.driverId) {
-    return res.status(400).json({ error: "Frete não está disponível para aceite" });
+  if (freight.driverId !== driver.id) {
+    return res.status(403).json({
+      error: "Apenas o motorista responsável pode iniciar o frete",
+    });
+  }
+
+  if (freight.status !== "ACCEPTED") {
+    return res.status(400).json({
+      error: "Só é possível iniciar frete com status ACCEPTED",
+    });
   }
 
   const updatedFreight = await prisma.freight.update({
     where: { id },
     data: {
-      driverId: driver.id,
-      status: "ACCEPTED",
+      status: "IN_PROGRESS",
     },
   });
 
