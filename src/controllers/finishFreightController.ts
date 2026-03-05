@@ -29,6 +29,12 @@ export async function finishFreightController(req: AuthRequest, res: Response) {
     return res.status(403).json({ error: "Apenas o motorista que aceitou pode finalizar" });
   }
 
+  if (freight.status !== "IN_PROGRESS") {
+    return res.status(400).json({
+      error: "Só é possível finalizar frete com status IN_PROGRESS",
+    });
+  }
+
   const updatedFreight = await prisma.freight.update({
     where: { id },
     data: {

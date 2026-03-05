@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { AuthRequest } from "../middlewares/authMiddleware";
-import { prisma } from "../../prisma/client";
+import { prisma } from "../prisma/client";
 
 export async function createFreightController(
   req: AuthRequest,
