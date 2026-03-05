@@ -12,6 +12,7 @@ import { meController } from "../controllers/meController";
 import { listClientFreightsController } from "../controllers/listClientFreightsController";
 import { listDriverFreightsController } from "../controllers/listDriverFreightsController";
 import { createReviewController } from "../controllers/createReviewController";
+import { updateDriverStatusController } from "../controllers/updateDriverStatusController";
 
 import { authMiddleware } from "../middlewares/authMiddleware";
 import { roleMiddleware } from "../middlewares/roleMiddleware";
@@ -75,6 +76,14 @@ router.get(
   authMiddleware,
   roleMiddleware("DRIVER"),
   listDriverFreightsController
+);
+
+
+router.patch(
+  "/drivers/status",
+  authMiddleware,
+  roleMiddleware("DRIVER"),
+  updateDriverStatusController
 );
 
 router.post(
