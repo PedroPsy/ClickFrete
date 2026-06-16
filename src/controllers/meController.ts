@@ -1,28 +1,17 @@
-import { Response } from "express";
-import { prisma } from "../prisma/client";
-import { AuthRequest } from "../middlewares/authMiddleware";
+import { Response } from 'express';
+import { AuthRequest } from '../middlewares/authMiddleware';
+import { AuthService } from '../services/auth.service';
+import { UnauthorizedError } from '../utils/AppError';
 
 export async function meController(req: AuthRequest, res: Response) {
-  if (!req.user) {
-    return res.status(401).json({ error: "Não autenticado" });
+  try {
+    if (!req.user?.id) {
+      throw new UnauthorizedError('Não autenticado');
+    }
+
+    const user = await AuthService.getUser(req.user.id);
+    return res.json(user);
+  } catch (error) {
+    return res.status(401).json({ error: 'Erro ao buscar usuário' });
   }
-
-  const user = await prisma.user.findUnique({
-    where: { id: req.user.id },
-    include: { driver: true },
-  });
-
-  if (!user) {
-    return res.status(404).json({ error: "Usuário não encontrado" });
-  }
-
-  return res.json({
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    role: user.role,
-    phone: user.phone,
-    driver: user.driver,
-    createdAt: user.createdAt,
-  });
 }

@@ -1,86 +1,101 @@
-import { Router } from "express";
+import { Router } from 'express';
+import { registerController } from '../controllers/registerController';
+import { loginController } from '../controllers/loginController';
+import { createFreightController } from '../controllers/createFreightController';
+import { acceptFreightController } from '../controllers/acceptFreightController';
+import { listAvailableFreightsController } from '../controllers/listAvailableFreightsController';
+import { finishFreightController } from '../controllers/finishFreightController';
+import { startFreightController } from '../controllers/startFreightController';
+import { cancelFreightController } from '../controllers/cancelFreightController';
+import { meController } from '../controllers/meController';
+import { listClientFreightsController } from '../controllers/listClientFreightsController';
+import { listDriverFreightsController } from '../controllers/listDriverFreightsController';
+import { createReviewController } from '../controllers/createReviewController';
 
-import { registerController } from "../controllers/registerController";
-import { loginController } from "../controllers/loginController";
-import { createFreightController } from "../controllers/createFreightController";
-import { acceptFreightController } from "../controllers/acceptFreightController";
-import { listAvailableFreightsController } from "../controllers/listAvailableFreightsController";
-import { finishFreightController } from "../controllers/finishFreightController";
-import { startFreightController } from "../controllers/startFreightController";
-import { cancelFreightController } from "../controllers/cancelFreightController";
-import { meController } from "../controllers/meController";
-import { listClientFreightsController } from "../controllers/listClientFreightsController";
-import { listDriverFreightsController } from "../controllers/listDriverFreightsController";
-import { createReviewController } from "../controllers/createReviewController";
-
-import { authMiddleware } from "../middlewares/authMiddleware";
-import { roleMiddleware } from "../middlewares/roleMiddleware";
+import { authMiddleware } from '../middlewares/authMiddleware';
+import { roleMiddleware } from '../middlewares/roleMiddleware';
+import { validationMiddleware } from '../middlewares/validationMiddleware';
+import { RegisterSchema, LoginSchema, CreateFreightSchema, CreateReviewSchema } from '../validators';
+import { UserRole } from '../types';
 
 const router = Router();
 
-router.post("/register", registerController);
-router.post("/login", loginController);
-router.get("/me", authMiddleware, meController);
+// ==================== AUTH ====================
+router.post('/register', validationMiddleware(RegisterSchema), registerController);
+router.post('/login', validationMiddleware(LoginSchema), loginController);
+router.get('/me', authMiddleware, meController);
 
+// ==================== FREIGHTS ====================
+// Create freight (CLIENT only)
 router.post(
-  "/freights",
+  '/freights',
   authMiddleware,
-  roleMiddleware("CLIENT"),
+  roleMiddleware(UserRole.CLIENT),
+  validationMiddleware(CreateFreightSchema),
   createFreightController
 );
 
+// List available freights (DRIVER only)
 router.get(
-  "/freights/available",
+  '/freights/available',
   authMiddleware,
-  roleMiddleware("DRIVER"),
+  roleMiddleware(UserRole.DRIVER),
   listAvailableFreightsController
 );
 
+// Accept freight (DRIVER only)
 router.patch(
-  "/freights/:id/accept",
+  '/freights/:id/accept',
   authMiddleware,
-  roleMiddleware("DRIVER"),
+  roleMiddleware(UserRole.DRIVER),
   acceptFreightController
 );
 
+// Start freight (DRIVER only)
 router.patch(
-  "/freights/:id/start",
+  '/freights/:id/start',
   authMiddleware,
-  roleMiddleware("DRIVER"),
+  roleMiddleware(UserRole.DRIVER),
   startFreightController
 );
 
+// Finish freight (DRIVER only)
 router.patch(
-  "/freights/:id/finish",
+  '/freights/:id/finish',
   authMiddleware,
-  roleMiddleware("DRIVER"),
+  roleMiddleware(UserRole.DRIVER),
   finishFreightController
 );
 
+// Cancel freight (CLIENT or DRIVER)
 router.patch(
-  "/freights/:id/cancel",
+  '/freights/:id/cancel',
   authMiddleware,
   cancelFreightController
 );
 
+// List client freights (CLIENT only)
 router.get(
-  "/freights/client",
+  '/freights/client',
   authMiddleware,
-  roleMiddleware("CLIENT"),
+  roleMiddleware(UserRole.CLIENT),
   listClientFreightsController
 );
 
+// List driver freights (DRIVER only)
 router.get(
-  "/freights/driver",
+  '/freights/driver',
   authMiddleware,
-  roleMiddleware("DRIVER"),
+  roleMiddleware(UserRole.DRIVER),
   listDriverFreightsController
 );
 
+// ==================== REVIEWS ====================
 router.post(
-  "/reviews",
+  '/reviews',
   authMiddleware,
-  roleMiddleware("CLIENT"),
+  roleMiddleware(UserRole.CLIENT),
+  validationMiddleware(CreateReviewSchema),
   createReviewController
 );
 

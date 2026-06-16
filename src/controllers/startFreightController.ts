@@ -1,48 +1,27 @@
-import { Response } from "express";
-import { prisma } from "../prisma/client";
-import { AuthRequest } from "../middlewares/authMiddleware";
+import { Response } from 'express';
+import { prisma } from '../prisma/client';
+import { AuthRequest } from '../middlewares/authMiddleware';
+import { FreightService } from '../services/freight.service';
 
 export async function startFreightController(req: AuthRequest, res: Response) {
-  const { id } = req.params;
+  try {
+    if (!req.user?.id) {
+      return res.status(401).json({ error: 'Não autenticado' });
+    }
 
-  if (!req.user) {
-    return res.status(401).json({ error: "Não autenticado" });
-  }
-
-  const driver = await prisma.driver.findUnique({
-    where: { userId: req.user.id },
-  });
-
-  if (!driver) {
-    return res.status(404).json({ error: "Motorista não encontrado" });
-  }
-
-  const freight = await prisma.freight.findUnique({
-    where: { id },
-  });
-
-  if (!freight) {
-    return res.status(404).json({ error: "Frete não encontrado" });
-  }
-
-  if (freight.driverId !== driver.id) {
-    return res.status(403).json({
-      error: "Apenas o motorista responsável pode iniciar o frete",
+    const { id } = req.params;
+    const driver = await prisma.driver.findUnique({
+      where: { userId: req.user.id },
     });
+
+    if (!driver) {
+      return res.status(404).json({ error: 'Motorista não encontrado' });
+    }
+
+    const freight = await FreightService.startFreight(id, driver.id);
+    return res.json(freight);
+  } catch (error: any) {
+    const statusCode = error.statusCode || 500;
+    return res.status(statusCode).json({ error: error.message });
   }
-
-  if (freight.status !== "ACCEPTED") {
-    return res.status(400).json({
-      error: "Só é possível iniciar frete com status ACCEPTED",
-    });
-  }
-
-  const updatedFreight = await prisma.freight.update({
-    where: { id },
-    data: {
-      status: "IN_PROGRESS",
-    },
-  });
-
-  return res.json(updatedFreight);
 }
