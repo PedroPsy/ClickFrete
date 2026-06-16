@@ -6,7 +6,7 @@
 ![Prisma](https://img.shields.io/badge/Prisma-v5.22-blue)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v12+-336791)
 
-Sistema de API para gerenciar fretes (transporte) conectando clientes e motoristas. Baseado no conceito do Uber para mudanças.
+Sistema de API e frontend web para gerenciar fretes (transporte) conectando clientes e motoristas. Baseado no conceito do Uber para mudanças.
 
 ---
 
@@ -77,10 +77,64 @@ npm run prisma:generate
 npm run dev
 ```
 
-### 6. Acessar a API
+### 6. Acessar a aplicação
+- **Frontend Web**: http://localhost:3333
 - **API**: http://localhost:3333
 - **Documentação**: http://localhost:3333/api/docs
 - **Health Check**: http://localhost:3333/health
+
+
+---
+
+## 🖥️ Frontend Web
+
+O projeto inclui um frontend web estático, simples e moderno, inspirado em aplicativos de mobilidade como Uber. Ele fica na pasta [`public`](./public) e é servido diretamente pelo Express, sem precisar de React, Vite ou outro servidor separado.
+
+### O que o frontend permite fazer
+
+- **Login e cadastro** de clientes e motoristas usando os endpoints `/login` e `/register`
+- **Persistência de sessão** no navegador via `localStorage`
+- **Criação de fretes** para usuários com perfil `CLIENT`
+- **Listagem de fretes do cliente** em `/freights/client`
+- **Listagem de fretes disponíveis e do motorista** em `/freights/available` e `/freights/driver`
+- **Ações do motorista** para aceitar, iniciar e finalizar fretes
+- **Cancelamento de fretes** quando permitido pela API
+- **Layout responsivo**, com cards, estados vazios e notificações em tela
+
+### Como rodar o frontend
+
+O frontend roda junto com a API. Depois de configurar o banco e o `.env`, inicie o servidor:
+
+```bash
+npm run dev
+```
+
+Em seguida, abra no navegador:
+
+```text
+http://localhost:3333
+```
+
+> O frontend consome a própria API no mesmo host/porta. Por isso, mantenha o backend rodando em `localhost:3333` ou ajuste a configuração do servidor caso altere a porta.
+
+### Arquivos principais do frontend
+
+```text
+public/
+├── index.html      # Estrutura da página, formulários e painel operacional
+├── styles.css      # Visual responsivo e componentes da interface
+└── app.js          # Integração com a API, sessão e ações dos fretes
+```
+
+### Fluxo sugerido para testar pelo navegador
+
+1. Acesse http://localhost:3333
+2. Cadastre um usuário `CLIENT`
+3. Faça login com esse usuário
+4. Crie uma solicitação de frete
+5. Cadastre ou use outro usuário com perfil `DRIVER`
+6. Faça login como motorista
+7. Veja os fretes disponíveis e use as ações de aceitar, iniciar e finalizar
 
 ---
 
@@ -111,6 +165,10 @@ src/
 ├── prisma/              # Prisma client
 ├── routes/              # Definição de rotas
 └── server.ts            # Entry point
+public/                  # Frontend estático servido pelo Express
+├── index.html
+├── styles.css
+└── app.js
 ```
 
 ### Padrão de Requisição
