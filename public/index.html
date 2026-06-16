@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ClickFretes | Fretes sob demanda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="ClickFretes início">
+        <span class="brand__icon">↗</span>
+        <span>ClickFretes</span>
+      </a>
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#app">App</a>
+        <a href="/api/docs">API Docs</a>
+      </nav>
+      <button class="button button--ghost" data-scroll-target="app">Entrar</button>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero__content">
+          <p class="eyebrow">Fretes urbanos, do jeito simples</p>
+          <h1>Solicite mudanças e entregas em poucos cliques.</h1>
+          <p class="hero__text">
+            Uma experiência moderna para conectar clientes e motoristas: preço claro,
+            acompanhamento de status e histórico sempre à mão.
+          </p>
+          <div class="hero__actions">
+            <button class="button button--primary" data-scroll-target="app">Solicitar frete</button>
+            <button class="button button--secondary" data-scroll-target="app">Sou motorista</button>
+          </div>
+          <div class="hero__stats" aria-label="Indicadores da plataforma">
+            <div><strong>24/7</strong><span>Disponível</span></div>
+            <div><strong>5 etapas</strong><span>Fluxo completo</span></div>
+            <div><strong>100%</strong><span>Via API</span></div>
+          </div>
+        </div>
+
+        <div class="hero__visual" aria-label="Prévia do aplicativo ClickFretes">
+          <div class="map-card">
+            <div class="route-line"></div>
+            <span class="pin pin--pickup"></span>
+            <span class="pin pin--dropoff"></span>
+            <div class="ride-card">
+              <div>
+                <span class="muted">Frete estimado</span>
+                <strong>R$ 89,90</strong>
+              </div>
+              <span class="badge">REQUESTED</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="features" id="como-funciona">
+        <article>
+          <span>01</span>
+          <h2>Crie sua conta</h2>
+          <p>Cadastre-se como cliente ou motorista com validação direta na API.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2>Publique ou aceite</h2>
+          <p>Clientes criam fretes; motoristas visualizam oportunidades disponíveis.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h2>Acompanhe o status</h2>
+          <p>Controle REQUESTED, ACCEPTED, IN_PROGRESS, FINISHED ou CANCELED.</p>
+        </article>
+      </section>
+
+      <section class="app-shell" id="app">
+        <aside class="panel auth-panel">
+          <div class="panel__header">
+            <p class="eyebrow">Acesso</p>
+            <h2>Entre ou cadastre-se</h2>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Escolha entre login e cadastro">
+            <button class="tab active" data-auth-tab="login" type="button">Login</button>
+            <button class="tab" data-auth-tab="register" type="button">Cadastro</button>
+          </div>
+
+          <form class="form" id="loginForm">
+            <label>Email<input type="email" name="email" placeholder="voce@email.com" required /></label>
+            <label>Senha<input type="password" name="password" placeholder="••••••" required /></label>
+            <button class="button button--primary button--full" type="submit">Entrar</button>
+          </form>
+
+          <form class="form hidden" id="registerForm">
+            <label>Nome<input name="name" placeholder="Maria Silva" minlength="3" required /></label>
+            <label>Email<input type="email" name="email" placeholder="maria@email.com" required /></label>
+            <label>Telefone<input name="phone" placeholder="11987654321" pattern="\d{10,11}" required /></label>
+            <label>Senha<input type="password" name="password" placeholder="mínimo 6 caracteres" minlength="6" required /></label>
+            <label>Perfil
+              <select name="role" id="roleSelect" required>
+                <option value="CLIENT">Cliente</option>
+                <option value="DRIVER">Motorista</option>
+              </select>
+            </label>
+            <div class="driver-fields hidden" id="driverFields">
+              <label>Tipo do veículo<input name="vehicleType" placeholder="Van, caminhonete..." /></label>
+              <label>Placa<input name="vehiclePlate" placeholder="ABC1D23" /></label>
+            </div>
+            <button class="button button--primary button--full" type="submit">Criar conta</button>
+          </form>
+
+          <div class="session-card hidden" id="sessionCard">
+            <span class="status-dot"></span>
+            <div>
+              <strong id="sessionName">Usuário</strong>
+              <p id="sessionRole">CLIENT</p>
+            </div>
+            <button class="link-button" id="logoutButton" type="button">Sair</button>
+          </div>
+        </aside>
+
+        <section class="panel workspace">
+          <div class="panel__header workspace__header">
+            <div>
+              <p class="eyebrow">Painel operacional</p>
+              <h2 id="workspaceTitle">Solicite seu frete</h2>
+            </div>
+            <button class="button button--secondary" id="refreshButton" type="button">Atualizar</button>
+          </div>
+
+          <div class="client-area" id="clientArea">
+            <form class="quote-card" id="freightForm">
+              <label>Coleta<input name="pickupAddress" placeholder="Rua de origem, 123" minlength="5" required /></label>
+              <label>Entrega<input name="dropoffAddress" placeholder="Avenida destino, 456" minlength="5" required /></label>
+              <div class="form-grid">
+                <label>Preço (R$)<input type="number" name="price" min="1" step="0.01" placeholder="89.90" required /></label>
+                <label>Descrição<input name="description" placeholder="Caixas, sofá, geladeira..." /></label>
+              </div>
+              <button class="button button--dark button--full" type="submit">Criar solicitação</button>
+            </form>
+          </div>
+
+          <div class="driver-area hidden" id="driverArea">
+            <div class="empty-state">
+              <strong>Modo motorista</strong>
+              <p>Aceite fretes disponíveis e gerencie sua rota.</p>
+            </div>
+          </div>
+
+          <div class="list-header">
+            <h3 id="listTitle">Meus fretes</h3>
+            <span id="paginationInfo">—</span>
+          </div>
+          <div class="freight-list" id="freightList"></div>
+        </section>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
