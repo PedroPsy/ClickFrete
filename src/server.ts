@@ -1,14 +1,11 @@
 import 'express-async-errors';
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import { router } from './routes';
 import { errorMiddleware } from './middlewares/errorMiddleware';
 import { swaggerConfig } from './config/swagger';
 import logger from './utils/logger';
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3333;

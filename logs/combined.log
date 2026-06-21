@@ -1,0 +1,38 @@
+{"level":"info","message":"🚀 Server running on port 3333","service":"clickfrete-api","timestamp":"2026-06-21 13:36:40"}
+{"level":"info","message":"📚 Swagger documentation available at http://localhost:3333/api/docs","service":"clickfrete-api","timestamp":"2026-06-21 13:36:40"}
+{"ip":"::1","level":"info","message":"GET /api/docs","method":"GET","path":"/api/docs","service":"clickfrete-api","timestamp":"2026-06-21 13:36:49"}
+{"ip":"::1","level":"info","message":"GET /api/docs/","method":"GET","path":"/api/docs/","service":"clickfrete-api","timestamp":"2026-06-21 13:36:49"}
+{"ip":"::1","level":"info","message":"GET /api/docs/swagger-ui.css","method":"GET","path":"/api/docs/swagger-ui.css","service":"clickfrete-api","timestamp":"2026-06-21 13:36:49"}
+{"ip":"::1","level":"info","message":"GET /api/docs/swagger-ui-bundle.js","method":"GET","path":"/api/docs/swagger-ui-bundle.js","service":"clickfrete-api","timestamp":"2026-06-21 13:36:49"}
+{"ip":"::1","level":"info","message":"GET /api/docs/swagger-ui-standalone-preset.js","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","service":"clickfrete-api","timestamp":"2026-06-21 13:36:49"}
+{"ip":"::1","level":"info","message":"GET /api/docs/swagger-ui-init.js","method":"GET","path":"/api/docs/swagger-ui-init.js","service":"clickfrete-api","timestamp":"2026-06-21 13:36:49"}
+{"ip":"::1","level":"info","message":"GET /api/docs/favicon-16x16.png","method":"GET","path":"/api/docs/favicon-16x16.png","service":"clickfrete-api","timestamp":"2026-06-21 13:36:49"}
+{"ip":"::1","level":"info","message":"GET /favicon.ico","method":"GET","path":"/favicon.ico","service":"clickfrete-api","timestamp":"2026-06-21 13:37:06"}
+{"ip":"::1","level":"info","message":"POST /register","method":"POST","path":"/register","service":"clickfrete-api","timestamp":"2026-06-21 13:38:44"}
+{"error":{"clientVersion":"5.22.0","name":"PrismaClientInitializationError"},"level":"error","message":"Error registering user","service":"clickfrete-api","timestamp":"2026-06-21 13:38:44"}
+{"ip":"::1","level":"info","message":"POST /register","method":"POST","path":"/register","service":"clickfrete-api","timestamp":"2026-06-21 13:38:50"}
+{"error":{"clientVersion":"5.22.0","name":"PrismaClientInitializationError"},"level":"error","message":"Error registering user","service":"clickfrete-api","timestamp":"2026-06-21 13:38:50"}
+{"ip":"::1","level":"info","message":"POST /register","method":"POST","path":"/register","service":"clickfrete-api","timestamp":"2026-06-21 13:39:24"}
+{"error":{"clientVersion":"5.22.0","name":"PrismaClientInitializationError"},"level":"error","message":"Error registering user","service":"clickfrete-api","timestamp":"2026-06-21 13:39:24"}
+{"level":"info","message":"🚀 Server running on port 3333","service":"clickfrete-api","timestamp":"2026-06-21 13:41:44"}
+{"level":"info","message":"📚 Swagger documentation available at http://localhost:3333/api/docs","service":"clickfrete-api","timestamp":"2026-06-21 13:41:44"}
+{"ip":"::1","level":"info","message":"POST /register","method":"POST","path":"/register","service":"clickfrete-api","timestamp":"2026-06-21 13:42:21"}
+{"error":{"clientVersion":"5.22.0","name":"PrismaClientInitializationError"},"level":"error","message":"Error registering user","service":"clickfrete-api","timestamp":"2026-06-21 13:42:21"}
+{"ip":"::1","level":"info","message":"POST /freights","method":"POST","path":"/freights","service":"clickfrete-api","timestamp":"2026-06-21 13:46:01"}
+{"ip":"::1","level":"info","message":"GET /api/docs","method":"GET","path":"/api/docs","service":"clickfrete-api","timestamp":"2026-06-21 13:46:08"}
+{"ip":"::1","level":"info","message":"GET /api/docs/","method":"GET","path":"/api/docs/","service":"clickfrete-api","timestamp":"2026-06-21 13:46:08"}
+{"ip":"::1","level":"info","message":"GET /api/docs/swagger-ui.css","method":"GET","path":"/api/docs/swagger-ui.css","service":"clickfrete-api","timestamp":"2026-06-21 13:46:08"}
+{"ip":"::1","level":"info","message":"GET /api/docs/swagger-ui-bundle.js","method":"GET","path":"/api/docs/swagger-ui-bundle.js","service":"clickfrete-api","timestamp":"2026-06-21 13:46:08"}
+{"ip":"::1","level":"info","message":"GET /api/docs/swagger-ui-standalone-preset.js","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","service":"clickfrete-api","timestamp":"2026-06-21 13:46:08"}
+{"ip":"::1","level":"info","message":"GET /api/docs/swagger-ui-init.js","method":"GET","path":"/api/docs/swagger-ui-init.js","service":"clickfrete-api","timestamp":"2026-06-21 13:46:08"}
+{"ip":"::1","level":"info","message":"GET /api/docs/favicon-32x32.png","method":"GET","path":"/api/docs/favicon-32x32.png","service":"clickfrete-api","timestamp":"2026-06-21 13:46:08"}
+{"level":"info","message":"🚀 Server running on port 3333","service":"clickfrete-api","timestamp":"2026-06-21 13:48:27"}
+{"level":"info","message":"📚 Swagger documentation available at http://localhost:3333/api/docs","service":"clickfrete-api","timestamp":"2026-06-21 13:48:27"}
+{"ip":"::1","level":"info","message":"POST /register","method":"POST","path":"/register","service":"clickfrete-api","timestamp":"2026-06-21 13:48:35"}
+{"error":{"clientVersion":"5.22.0","name":"PrismaClientInitializationError"},"level":"error","message":"Error registering user","service":"clickfrete-api","timestamp":"2026-06-21 13:48:35"}
+{"level":"info","message":"🚀 Server running on port 3333","service":"clickfrete-api","timestamp":"2026-06-21 13:49:19"}
+{"level":"info","message":"📚 Swagger documentation available at http://localhost:3333/api/docs","service":"clickfrete-api","timestamp":"2026-06-21 13:49:19"}
+{"level":"info","message":"🚀 Server running on port 3333","service":"clickfrete-api","timestamp":"2026-06-21 13:49:21"}
+{"level":"info","message":"📚 Swagger documentation available at http://localhost:3333/api/docs","service":"clickfrete-api","timestamp":"2026-06-21 13:49:21"}
+{"ip":"::1","level":"info","message":"POST /register","method":"POST","path":"/register","service":"clickfrete-api","timestamp":"2026-06-21 13:49:38"}
+{"error":{"clientVersion":"5.22.0","name":"PrismaClientInitializationError"},"level":"error","message":"Error registering user","service":"clickfrete-api","timestamp":"2026-06-21 13:49:38"}
