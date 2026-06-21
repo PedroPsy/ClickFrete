@@ -11,7 +11,9 @@
     "start": "node dist/server.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "test:cypress": "cypress run --config-file testes/cypress.config.ts",
+    "test:cypress:open": "cypress open --config-file testes/cypress.config.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
@@ -36,6 +38,7 @@
     "@types/swagger-ui-express": "^4.1.6",
     "prisma": "^5.22.0",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "cypress": "^15.0.0"
   }
 }
