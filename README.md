@@ -442,3 +442,48 @@ Contribuições são bem-vindas! Por favor:
 
 **Última atualização**: Junho 2026
 **Versão**: 1.0.0
+
+---
+
+## 🧪 Testes automatizados com Cypress
+
+O projeto possui um repertório de testes automatizados na pasta [`testes`](./testes), cobrindo:
+
+- **Funções e schemas**: validações de cadastro, login, criação de frete, avaliação, paginação e classes de erro.
+- **Endpoints da API**: health check, cadastro, login, `/me`, permissões por perfil e fluxo completo de frete com avaliação.
+
+### Instalar dependências de teste
+
+```bash
+npm install
+```
+
+> O Cypress foi adicionado como dependência de desenvolvimento. Caso o ambiente bloqueie downloads do registry do npm, libere o pacote `cypress` ou instale as dependências em uma rede sem bloqueio.
+
+### Preparar a API antes dos testes
+
+Configure o `.env`, execute as migrações e deixe o servidor rodando em outro terminal:
+
+```bash
+npm run prisma:migrate
+npm run prisma:generate
+npm run dev
+```
+
+Por padrão, os testes apontam para `http://localhost:3333`. Para usar outra URL:
+
+```bash
+CYPRESS_BASE_URL=http://localhost:3333 npm run test:cypress
+```
+
+### Rodar todos os testes em modo headless
+
+```bash
+npm run test:cypress
+```
+
+### Abrir a interface interativa do Cypress
+
+```bash
+npm run test:cypress:open
+```
