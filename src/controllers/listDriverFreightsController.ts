@@ -2,8 +2,13 @@ import { Response } from 'express';
 import { prisma } from '../prisma/client';
 import { AuthRequest } from '../middlewares/authMiddleware';
 import { FreightService } from '../services/freight.service';
+import { PaginationInput } from '../validators';
 
-export async function listDriverFreightsController(req: AuthRequest, res: Response) {
+type PaginatedAuthRequest = AuthRequest & {
+  validatedData: PaginationInput;
+};
+
+export async function listDriverFreightsController(req: PaginatedAuthRequest, res: Response) {
   try {
     if (!req.user?.id) {
       return res.status(401).json({ error: 'Não autenticado' });
@@ -17,8 +22,7 @@ export async function listDriverFreightsController(req: AuthRequest, res: Respon
       return res.status(404).json({ error: 'Motorista não encontrado' });
     }
 
-    const page = Math.max(1, parseInt(req.query.page as string) || 1);
-    const limit = Math.min(100, parseInt(req.query.limit as string) || 10);
+    const { page, limit } = req.validatedData;
 
     const result = await FreightService.getDriverFreights(driver.id, page, limit);
     return res.json(result);

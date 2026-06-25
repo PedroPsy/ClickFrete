@@ -1,38 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cancelFreightController = cancelFreightController;
-const client_1 = require("../prisma/client");
+const freight_service_1 = require("../services/freight.service");
 async function cancelFreightController(req, res) {
-    const { id } = req.params;
-    if (!req.user) {
-        return res.status(401).json({ error: "Não autenticado" });
+    try {
+        if (!req.user?.id || !req.user?.role) {
+            return res.status(401).json({ error: 'Não autenticado' });
+        }
+        const { id } = req.params;
+        const freight = await freight_service_1.FreightService.cancelFreight(id, req.user.id, req.user.role);
+        return res.json(freight);
     }
-    const freight = await client_1.prisma.freight.findUnique({
-        where: { id },
-    });
-    if (!freight) {
-        return res.status(404).json({ error: "Frete não encontrado" });
+    catch (error) {
+        const statusCode = error.statusCode || 500;
+        return res.status(statusCode).json({ error: error.message });
     }
-    const driver = await client_1.prisma.driver.findUnique({
-        where: { userId: req.user.id },
-    });
-    const isClientOwner = freight.clientId === req.user.id;
-    const isDriverOwner = !!driver && freight.driverId === driver.id;
-    if (!isClientOwner && !isDriverOwner) {
-        return res.status(403).json({
-            error: "Apenas cliente dono do frete ou motorista responsável podem cancelar",
-        });
-    }
-    if (freight.status === "FINISHED" || freight.status === "CANCELED") {
-        return res.status(400).json({
-            error: "Não é possível cancelar frete finalizado ou já cancelado",
-        });
-    }
-    const updatedFreight = await client_1.prisma.freight.update({
-        where: { id },
-        data: {
-            status: "CANCELED",
-        },
-    });
-    return res.json(updatedFreight);
 }
