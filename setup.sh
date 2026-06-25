@@ -9,7 +9,7 @@ echo "🚀 Configurando ClickFretes..."
 echo ""
 
 # 1. Verificar Node.js
-echo "1️⃣  Verificando Node.js..."
+echo "1️⃣     Verificando Node.js..."
 if ! command -v node &> /dev/null; then
     echo "❌ Node.js não encontrado. Instale em https://nodejs.org"
     exit 1

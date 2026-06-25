@@ -91,17 +91,92 @@ h1 { max-width: 800px; margin-bottom: 24px; font-size: clamp(3rem, 8vw, 6.6rem);
   min-height: 540px;
   overflow: hidden;
   border-radius: 32px;
-  background:
-    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px),
-    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
-    radial-gradient(circle at 32% 24%, rgba(182,255,59,.35), transparent 22%),
-    #202020;
-  background-size: 64px 64px, 64px 64px, auto, auto;
+  background: #dfe8dd;
 }
-.route-line { position: absolute; inset: 120px 96px 150px 130px; border-left: 7px solid var(--accent); border-bottom: 7px solid var(--accent); border-radius: 0 0 0 36px; }
-.pin { position: absolute; width: 24px; height: 24px; border: 6px solid #fff; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 8px rgba(255,255,255,.12); }
-.pin--pickup { top: 96px; left: 118px; }
-.pin--dropoff { right: 82px; bottom: 135px; background: #fff; }
+.map-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.92) 18px, transparent 18px 92px) 16px 28px / 116px 116px,
+    linear-gradient(rgba(255,255,255,.92) 18px, transparent 18px 92px) 0 20px / 116px 116px,
+    linear-gradient(90deg, rgba(15,15,15,.08) 1px, transparent 1px) 0 0 / 58px 58px,
+    linear-gradient(rgba(15,15,15,.08) 1px, transparent 1px) 0 0 / 58px 58px;
+  opacity: .9;
+}
+.map-grid, .route-path, .pin, .driver-marker, .ride-card { position: absolute; }
+.map-grid { inset: 0; }
+.district, .park, .road { position: absolute; display: block; }
+.district {
+  border-radius: 22px;
+  background: rgba(255,255,255,.58);
+  border: 1px solid rgba(0,0,0,.06);
+}
+.district--north { top: 48px; left: 44px; width: 132px; height: 112px; }
+.district--east { top: 76px; right: 38px; width: 126px; height: 150px; }
+.district--south { left: 52px; bottom: 118px; width: 152px; height: 112px; }
+.park {
+  border-radius: 999px;
+  background: #a8d67a;
+  box-shadow: inset 0 0 0 10px rgba(255,255,255,.22);
+}
+.park--one { top: 238px; left: 48px; width: 92px; height: 66px; transform: rotate(-12deg); }
+.park--two { right: 54px; bottom: 166px; width: 108px; height: 76px; transform: rotate(14deg); }
+.road {
+  border-radius: 999px;
+  background: #fff8ea;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.05), inset 0 0 0 2px rgba(255,255,255,.8);
+}
+.road--main { top: -34px; left: 214px; width: 34px; height: 610px; transform: rotate(18deg); }
+.road--cross { top: 248px; left: -52px; width: 560px; height: 34px; transform: rotate(-8deg); }
+.road--diagonal { top: 96px; left: -66px; width: 560px; height: 24px; transform: rotate(42deg); opacity: .78; }
+.route-path {
+  inset: 18px 22px 64px;
+  width: calc(100% - 44px);
+  height: calc(100% - 82px);
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 13;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,.16));
+}
+.pin {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 6px solid #fff;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 8px rgba(255,255,255,.38), 0 12px 28px rgba(0,0,0,.24);
+}
+.pin span {
+  position: absolute;
+  top: 31px;
+  white-space: nowrap;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: .72rem;
+  font-weight: 900;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+}
+.pin--pickup { top: 96px; left: 84px; background: var(--accent); }
+.pin--dropoff { right: 146px; bottom: 102px; background: #fff; border-color: var(--ink); }
+.driver-marker {
+  top: 246px;
+  left: 245px;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  background: var(--ink);
+  box-shadow: 0 16px 32px rgba(0,0,0,.28);
+  transform: rotate(8deg);
+}
+.driver-marker svg { width: 35px; height: 35px; fill: var(--accent); }
 .ride-card { position: absolute; left: 24px; right: 24px; bottom: 24px; display: flex; justify-content: space-between; align-items: center; padding: 22px; border-radius: 24px; background: #fff; }
 .ride-card strong { display: block; margin-top: 4px; font-size: 2rem; }
 .muted { color: var(--muted); }

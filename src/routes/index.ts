@@ -14,8 +14,8 @@ import { createReviewController } from '../controllers/createReviewController';
 
 import { authMiddleware } from '../middlewares/authMiddleware';
 import { roleMiddleware } from '../middlewares/roleMiddleware';
-import { validationMiddleware } from '../middlewares/validationMiddleware';
-import { RegisterSchema, LoginSchema, CreateFreightSchema, CreateReviewSchema } from '../validators';
+import { queryValidationMiddleware, validationMiddleware } from '../middlewares/validationMiddleware';
+import { RegisterSchema, LoginSchema, CreateFreightSchema, CreateReviewSchema, PaginationSchema } from '../validators';
 import { UserRole } from '../types';
 
 const router = Router();
@@ -40,6 +40,7 @@ router.get(
   '/freights/available',
   authMiddleware,
   roleMiddleware(UserRole.DRIVER),
+  queryValidationMiddleware(PaginationSchema),
   listAvailableFreightsController
 );
 
@@ -79,6 +80,7 @@ router.get(
   '/freights/client',
   authMiddleware,
   roleMiddleware(UserRole.CLIENT),
+  queryValidationMiddleware(PaginationSchema),
   listClientFreightsController
 );
 
@@ -87,6 +89,7 @@ router.get(
   '/freights/driver',
   authMiddleware,
   roleMiddleware(UserRole.DRIVER),
+  queryValidationMiddleware(PaginationSchema),
   listDriverFreightsController
 );
 

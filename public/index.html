@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
@@ -45,9 +46,27 @@
 
         <div class="hero__visual" aria-label="Prévia do aplicativo ClickFretes">
           <div class="map-card">
-            <div class="route-line"></div>
-            <span class="pin pin--pickup"></span>
-            <span class="pin pin--dropoff"></span>
+            <div class="map-grid" aria-hidden="true">
+              <span class="district district--north"></span>
+              <span class="district district--east"></span>
+              <span class="district district--south"></span>
+              <span class="park park--one"></span>
+              <span class="park park--two"></span>
+              <span class="road road--main"></span>
+              <span class="road road--cross"></span>
+              <span class="road road--diagonal"></span>
+            </div>
+            <svg class="route-path" viewBox="0 0 420 520" aria-hidden="true">
+              <path d="M88 104 C152 120 154 190 210 204 S330 236 316 314 228 352 246 416" />
+            </svg>
+            <span class="pin pin--pickup"><span>Coleta</span></span>
+            <span class="pin pin--dropoff"><span>Entrega</span></span>
+            <span class="driver-marker" aria-hidden="true">
+              <svg viewBox="0 0 48 48">
+                <path d="M10 29h3l4-9h16l4 9h3v9h-5a5 5 0 0 1-10 0h-2a5 5 0 0 1-10 0h-3v-9Z" />
+                <path d="M18 23h12l2 5H16l2-5Z" />
+              </svg>
+            </span>
             <div class="ride-card">
               <div>
                 <span class="muted">Frete estimado</span>
